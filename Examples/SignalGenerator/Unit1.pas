@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Winapi.ActiveX, Winapi.DirectShow9,
-  DeckLinkAPI_TLB_10_5, SignalGenerator3DVideoFrame;
+  DeckLinkAPI_TLB_10_6_6, SignalGenerator3DVideoFrame;
 
 type
   _OutputSignal = TOleEnum;
@@ -63,6 +63,7 @@ type
     Procedure WriteNextAudioSamples();
     function CreateBlackFrame(): TSignalGenerator3DVideoFrame;
     function CreateBarsFrame(): TSignalGenerator3DVideoFrame;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   protected
     function QueryInterface1(const IID: TGUID; out Obj): HRESULT; stdcall;
     function IDeckLinkVideoOutputCallback.QueryInterface = QueryInterface1;
@@ -362,7 +363,10 @@ begin
 		videoOutputFlags := bmdVideoOutputDualStream3D;
 
 		if (deckLinkDisplayMode.GetName(modeName) <> S_OK) then
+		begin
+			deckLinkDisplayMode._Release();
 			continue;
+		end;
 
     m_videoFormatCombo.Items.AddObject(modeName, TDeckLinkdisplayModeObject.Create(modeName, DeckLinkdisplayMode));
 
@@ -380,6 +384,19 @@ begin
 	m_videoFormatCombo.ItemIndex := 0;
 end;
 
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+	if m_running then
+		StopRunning();
+
+	if Assigned(m_deckLinkOutput) then
+	begin
+		m_deckLinkOutput.SetScheduledFrameCompletionCallback(nil);
+		m_deckLinkOutput.SetAudioCallback(nil);
+	end;
+
+end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 label
