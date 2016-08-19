@@ -8,8 +8,13 @@ uses
   System.SysUtils,
   Winapi.Windows,
   Winapi.activex,
-  Winapi.directshow9,
-  DeckLinkAPI_TLB_10_4_1 in '../../DeckLinkAPI_TLB_10_4_1.pas';
+  DeckLinkAPI.Types in '../../Include/DeckLinkAPI.Types.pas',
+  DeckLinkAPI.Modes in '../../Include/DeckLinkAPI.Modes.pas',
+  DeckLinkAPI.Discovery in '../../Include/DeckLinkAPI.Discovery.pas',
+  DeckLinkAPI.Configuration in '../../Include/DeckLinkAPI.Configuration.pas',
+  DeckLinkAPI.DeckControl in '../../Include/DeckLinkAPI.DeckControl.pas',
+  DeckLinkAPI.Streaming in '../../Include/DeckLinkAPI.Streaming.pas',
+  DeckLinkAPI in '../../Include/DeckLinkAPI.pas';
 
 const
   COMM_BUFFER_SIZE = 20;

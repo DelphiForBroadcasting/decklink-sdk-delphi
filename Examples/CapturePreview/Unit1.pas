@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, System.SyncObjs, System.UITypes,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Winapi.ActiveX,  Winapi.DirectShow9, DeckLinkAPI_TLB_10_5, DeckLinkDevice, PreviewWindow,
-  Vcl.StdCtrls, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Winapi.ActiveX,  Winapi.DirectShow9, Vcl.StdCtrls, Vcl.ExtCtrls,
+  DeckLinkDevice, PreviewWindow, DeckLinkAPI, DeckLinkAPI.Discovery;
 
 type
   TForm1 = class(TForm)
@@ -75,7 +75,7 @@ var
   m_selectedDevice    : TDeckLinkInputDevice;
   m_previewWindow     : TPreviewWindow;
   m_ancillaryData     : TAncillaryDataStruct;
-  m_critSec           :  TCriticalSection;
+  m_critSec           : TCriticalSection;
 implementation
 
 {$R *.dfm}

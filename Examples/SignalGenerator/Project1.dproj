@@ -90,7 +90,13 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="..\..\Include\DeckLinkAPI_TLB_10_6_6.pas"/>
+        <DCCReference Include="..\..\Include\DeckLinkAPI.Types.pas"/>
+        <DCCReference Include="..\..\Include\DeckLinkAPI.Modes.pas"/>
+        <DCCReference Include="..\..\Include\DeckLinkAPI.Discovery.pas"/>
+        <DCCReference Include="..\..\Include\DeckLinkAPI.Configuration.pas"/>
+        <DCCReference Include="..\..\Include\DeckLinkAPI.DeckControl.pas"/>
+        <DCCReference Include="..\..\Include\DeckLinkAPI.Streaming.pas"/>
+        <DCCReference Include="..\..\Include\DeckLinkAPI.pas"/>
         <DCCReference Include="Unit1.pas">
             <Form>Form1</Form>
         </DCCReference>

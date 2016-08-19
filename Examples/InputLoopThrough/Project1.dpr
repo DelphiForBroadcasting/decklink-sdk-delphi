@@ -2,7 +2,13 @@ program Project1;
 
 uses
   Vcl.Forms,
-  DeckLinkAPI_TLB_10_4_1 in '../../DeckLinkAPI_TLB_10_4_1.pas',
+  DeckLinkAPI.Types in '../../Include/DeckLinkAPI.Types.pas',
+  DeckLinkAPI.Modes in '../../Include/DeckLinkAPI.Modes.pas',
+  DeckLinkAPI.Discovery in '../../Include/DeckLinkAPI.Discovery.pas',
+  DeckLinkAPI.Configuration in '../../Include/DeckLinkAPI.Configuration.pas',
+  DeckLinkAPI.DeckControl in '../../Include/DeckLinkAPI.DeckControl.pas',
+  DeckLinkAPI.Streaming in '../../Include/DeckLinkAPI.Streaming.pas',
+  DeckLinkAPI in '../../Include/DeckLinkAPI.pas',
   Unit1 in 'Unit1.pas' {Form1};
 
 {$R *.res}

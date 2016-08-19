@@ -7,9 +7,14 @@ program Project1;
 uses
   System.SysUtils,
   System.Variants,
-  Winapi.activex,
-  Winapi.directshow9,
-  DeckLinkAPI_TLB_10_4_1 in '../../DeckLinkAPI_TLB_10_4_1.pas';
+  Winapi.ActiveX,
+  DeckLinkAPI.Types in '../../Include/DeckLinkAPI.Types.pas',
+  DeckLinkAPI.Modes in '../../Include/DeckLinkAPI.Modes.pas',
+  DeckLinkAPI.Discovery in '../../Include/DeckLinkAPI.Discovery.pas',
+  DeckLinkAPI.Configuration in '../../Include/DeckLinkAPI.Configuration.pas',
+  DeckLinkAPI.DeckControl in '../../Include/DeckLinkAPI.DeckControl.pas',
+  DeckLinkAPI.Streaming in '../../Include/DeckLinkAPI.Streaming.pas',
+  DeckLinkAPI in '../../Include/DeckLinkAPI.pas';
 
 const
   gKnownPixelFormats: array[0..9] of _BMDPixelFormat		= (bmdFormat8BitYUV, bmdFormat10BitYUV, bmdFormat8BitARGB, bmdFormat8BitBGRA, bmdFormat10BitRGB, bmdFormat12BitRGB, bmdFormat12BitRGBLE, bmdFormat10BitRGBXLE, bmdFormat10BitRGBX, 0);

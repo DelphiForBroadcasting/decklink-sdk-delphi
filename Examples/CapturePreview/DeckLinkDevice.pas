@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, System.SyncObjs, System.Generics.Collections,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Winapi.ActiveX, Winapi.DirectShow9, DeckLinkAPI_TLB_10_5;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Winapi.ActiveX, Winapi.DirectShow9,
+  DeckLinkAPI, DeckLinkAPI.Discovery, DeckLinkAPI.Modes, DeckLinkAPI.Types;
 
 const
   WM_REFRESH_INPUT_STREAM_DATA_MESSAGE = 701;
