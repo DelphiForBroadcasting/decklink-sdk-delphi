@@ -151,17 +151,17 @@ begin
   m_pDelegate := CVideoDelegate.create(self);
 
 	// Setup video format combo
-  m_VideoFormatCombo.Items.AddObject('NTSC', TObject(bmdModeNTSC));
-  m_VideoFormatCombo.Items.AddObject('PAL', TObject(bmdModePAL));
-  m_VideoFormatCombo.Items.AddObject('1080PsF 23.98', TObject(bmdModeHD1080p2398));
-  m_VideoFormatCombo.Items.AddObject('1080PsF 24', TObject(bmdModeHD1080p24));
-  m_VideoFormatCombo.Items.AddObject('1080i 50', TObject(bmdModeHD1080i50));
-  m_VideoFormatCombo.Items.AddObject('1080i 59.94', TObject(bmdModeHD1080i5994));
-  m_VideoFormatCombo.Items.AddObject('720p 50', TObject(bmdModeHD720p50));
-  m_VideoFormatCombo.Items.AddObject('720p 59.94', TObject(bmdModeHD720p5994));
-  m_VideoFormatCombo.Items.AddObject('720p 60', TObject(bmdModeHD720p60));
-  m_VideoFormatCombo.Items.AddObject('2K 23.98', TObject(bmdMode2k2398));
-  m_VideoFormatCombo.Items.AddObject('2K 24', TObject(bmdMode2k24));
+  m_VideoFormatCombo.Items.AddObject('525i59.94 NTSC', TObject(bmdModeNTSC));
+  m_VideoFormatCombo.Items.AddObject('625i50 PAL', TObject(bmdModePAL));
+  m_VideoFormatCombo.Items.AddObject('1080PsF23.98', TObject(bmdModeHD1080p2398));
+  m_VideoFormatCombo.Items.AddObject('1080PsF24', TObject(bmdModeHD1080p24));
+  m_VideoFormatCombo.Items.AddObject('1080i50', TObject(bmdModeHD1080i50));
+  m_VideoFormatCombo.Items.AddObject('1080i59.94', TObject(bmdModeHD1080i5994));
+  m_VideoFormatCombo.Items.AddObject('720p50', TObject(bmdModeHD720p50));
+  m_VideoFormatCombo.Items.AddObject('720p59.94', TObject(bmdModeHD720p5994));
+  m_VideoFormatCombo.Items.AddObject('720p60', TObject(bmdModeHD720p60));
+  m_VideoFormatCombo.Items.AddObject('2K 23.98p', TObject(bmdMode2k2398));
+  m_VideoFormatCombo.Items.AddObject('2K 24p', TObject(bmdMode2k24));
   m_VideoFormatCombo.ItemIndex:=0;
 
   result := CoCreateInstance(CLASS_CDeckLinkIterator, nil, CLSCTX_ALL, IID_IDeckLinkIterator,  pIterator);

@@ -39,7 +39,7 @@ uses
   System.SysUtils, System.Variants, Winapi.ActiveX;
 
 const
-  IID_IDeckLinkConfiguration: TGUID = '{CB71734A-FE37-4E8D-8E13-802133A1C3F2}';
+  IID_IDeckLinkConfiguration: TGUID = '{EF90380B-4AE5-4346-9077-E288E149F129}';
   IID_IDeckLinkEncoderConfiguration: TGUID = '{138050E5-C60A-4552-BF3F-0F358049327E}';
   
 // Type Declarations
@@ -53,10 +53,6 @@ const
     (* Serial port Flags *)
 
     bmdDeckLinkConfigSwapSerialRxTx                              = (* 'ssrt' *) $73737274;
-
-    (* Video Input/Output Flags *)
-
-    bmdDeckLinkConfigUse1080pNotPsF                              = (* 'fpro' *) $6670726F;
 
     (* Video Input/Output Integers *)
 
@@ -78,6 +74,10 @@ const
     bmdDeckLinkConfigLowLatencyVideoOutput                       = (* 'llvo' *) $6C6C766F;
     bmdDeckLinkConfigDownConversionOnAllAnalogOutput             = (* 'caao' *) $6361616F;
     bmdDeckLinkConfigSMPTELevelAOutput                           = (* 'smta' *) $736D7461;
+	
+    (* Video Output Flags *)
+
+    bmdDeckLinkConfigOutput1080pAsPsF                            = (* 'pfpr' *) $70667072;
 
     (* Video Output Integers *)
 
@@ -106,6 +106,11 @@ const
     bmdDeckLinkConfigUseDedicatedLTCInput                        = (* 'dltc' *) $646C7463;	// Use timecode from LTC input instead of SDI stream
     bmdDeckLinkConfigSDIInput3DPayloadOverride                   = (* '3dds' *) $33646473;
 
+    (* Video Input Flags *)
+
+    bmdDeckLinkConfigCapture1080pAsPsF                           = (* 'cfpr' *) $63667072;
+	
+	
     (* Video Input Integers *)
 
     bmdDeckLinkConfigVideoInputConnection                        = (* 'vicn' *) $7669636E;
@@ -207,10 +212,10 @@ type
 // *********************************************************************//
 // Interface: IDeckLinkConfiguration
 // Flags:     (0)
-// GUID:      {CB71734A-FE37-4E8D-8E13-802133A1C3F2}
+// GUID:      {EF90380B-4AE5-4346-9077-E288E149F129}
 // *********************************************************************//
   IDeckLinkConfiguration = interface(IUnknown)
-    ['{CB71734A-FE37-4E8D-8E13-802133A1C3F2}']
+    ['{EF90380B-4AE5-4346-9077-E288E149F129}']
     function SetFlag(cfgID: _BMDDeckLinkConfigurationID; value: Integer): HResult; stdcall;
     function GetFlag(cfgID: _BMDDeckLinkConfigurationID; out value: Integer): HResult; stdcall;
     function SetInt(cfgID: _BMDDeckLinkConfigurationID; value: Int64): HResult; stdcall;

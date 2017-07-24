@@ -80,12 +80,12 @@ const
   IID_IDeckLinkAudioMixer: TGUID = '{631AC603-6838-4FC2-9579-B1C2596847BF}';
   IID_IDeckLinkDeviceNotificationCallback: TGUID = '{4997053B-0ADF-4CC8-AC70-7A50C4BE728F}';
   IID_IDeckLinkDiscovery: TGUID = '{CDBF631C-BC76-45FA-B44D-C55059BC6101}';
-  CLASS_CDeckLinkIterator: TGUID = '{1F2E109A-8F4F-49E4-9203-135595CB6FA5}';
+  CLASS_CDeckLinkIterator: TGUID = '{87D2693F-8D4A-45C7-B43F-10ACBA25E68F}';
   CLASS_CDeckLinkAPIInformation: TGUID = '{263CA19F-ED09-482E-9F9D-84005783A237}';
   CLASS_CDeckLinkGLScreenPreviewHelper: TGUID = '{F63E77C7-B655-4A4A-9AD0-3CA85D394343}';
   CLASS_CDeckLinkDX9ScreenPreviewHelper: TGUID = '{CC010023-E01D-4525-9D59-80C8AB3DC7A0}';
   CLASS_CDeckLinkVideoConversion: TGUID = '{7DBBBB11-5B7B-467D-AEA4-CEA468FD368C}';
-  CLASS_CDeckLinkDiscovery: TGUID = '{1073A05C-D885-47E9-B3C6-129B3F9F648B}';
+  CLASS_CDeckLinkDiscovery: TGUID = '{652615D4-26CD-4514-B161-2FD5072ED008}';
 
 // Type Declarations
 type
@@ -122,6 +122,7 @@ const
   bmdFrameFlagDefault                                           = 0;
   bmdFrameFlagFlipVertical                                      = 1 shl 0;
   bmdFrameContainsHDRMetadata                                   = 1 shl 1;
+  bmdFrameContainsCintelMetadata                                = 1 shl 2;
   (* Flags that are applicable only to instances of IDeckLinkVideoInputFrame *)
   bmdFrameHasNoInputSource                                      = 1 shl 31;
 
@@ -323,7 +324,33 @@ const
 type
   _BMDDeckLinkFrameMetadataID = TOleEnum;
 const
-	bmdDeckLinkFrameMetadataHDRElectroOpticalTransferFunc         = (* 'eotf' *) $656F7466;	// EOTF in range 0-7 as per CEA 861.3
+  bmdDeckLinkFrameMetadataHDRElectroOpticalTransferFunc         = (* 'eotf' *) $656F7466;	// EOTF in range 0-7 as per CEA 861.3
+  bmdDeckLinkFrameMetadataCintelFilmType                        = (* 'cfty' *) $63667479;	// Current film type
+  bmdDeckLinkFrameMetadataCintelFilmGauge                       = (* 'cfga' *) $63666761;	// Current film gauge
+  bmdDeckLinkFrameMetadataCintelOffsetDetectedHorizontal        = (* 'odfh' *) $6F646668;	// Horizontal offset (pixels) detected in image
+  bmdDeckLinkFrameMetadataCintelOffsetDetectedVertical          = (* 'odfv' *) $6F646676;	// Vertical offset (pixels) detected in image
+  bmdDeckLinkFrameMetadataCintelOffsetAppliedHorizontal         = (* 'odah' *) $6F646168;	// Horizontal offset (pixels) applied to image
+  bmdDeckLinkFrameMetadataCintelOffsetAppliedVertical           = (* 'odav' *) $6F646176;	// Vertical offset (pixels) applied to image
+  bmdDeckLinkFrameMetadataCintelKeykodeLow                      = (* 'ckkl' *) $636B6B6C;	// Raw keykode value - low 64 bits
+  bmdDeckLinkFrameMetadataCintelKeykodeHigh                     = (* 'ckkh' *) $636B6B68;	// Raw keykode value - high 64 bits
+  bmdDeckLinkFrameMetadataCintelLinearMaskingRedInRed           = (* 'mrir' *) $6D726972;	// Red in red linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLinearMaskingGreenInRed         = (* 'mgir' *) $6D676972;	// Green in red linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLinearMaskingBlueInRed          = (* 'mbir' *) $6D626972;	// Blue in red linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLinearMaskingRedInGreen         = (* 'mrig' *) $6D726967;	// Red in green linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLinearMaskingGreenInGreen       = (* 'mgig' *) $6D676967;	// Green in green linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLinearMaskingBlueInGreen        = (* 'mbig' *) $6D626967;	// Blue in green linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLinearMaskingRedInBlue          = (* 'mrib' *) $6D726962;	// Red in blue linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLinearMaskingGreenInBlue        = (* 'mgib' *) $6D676962;	// Green in blue linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLinearMaskingBlueInBlue         = (* 'mbib' *) $6D626962;	// Blue in blue linear masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingRedInRed              = (* 'mlrr' *) $6D6C7272;	// Red in red log masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingGreenInRed            = (* 'mlgr' *) $6D6C6772;	// Green in red log masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingBlueInRed             = (* 'mlbr' *) $6D6C6272;	// Blue in red log masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingRedInGreen            = (* 'mlrg' *) $6D6C7267;	// Red in green log masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingGreenInGreen          = (* 'mlgg' *) $6D6C6767;	// Green in green log masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingBlueInGreen           = (* 'mlbg' *) $6D6C6267;	// Blue in green log masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingRedInBlue             = (* 'mlrb' *) $6D6C7262;	// Red in blue log masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingGreenInBlue           = (* 'mlgb' *) $6D6C6762;	// Green in blue log masking parameter
+  bmdDeckLinkFrameMetadataCintelLogMaskingBlueInBlue            = (* 'mlbb' *) $6D6C6262;	// Blue in blue log masking parameter
   bmdDeckLinkFrameMetadataHDRDisplayPrimariesRedX               = (* 'hdrx' *) $68647278;	// Red display primaries in range 0.0 - 1.0
   bmdDeckLinkFrameMetadataHDRDisplayPrimariesRedY               = (* 'hdry' *) $68647279;	// Red display primaries in range 0.0 - 1.0
   bmdDeckLinkFrameMetadataHDRDisplayPrimariesGreenX             = (* 'hdgx' *) $68646778;	// Green display primaries in range 0.0 - 1.0
@@ -336,6 +363,11 @@ const
   bmdDeckLinkFrameMetadataHDRMinDisplayMasteringLuminance       = (* 'hmil' *) $686D696C;	// Min display mastering luminance in range 0.0001 cd/m2 - 6.5535 cd/m2
   bmdDeckLinkFrameMetadataHDRMaximumContentLightLevel           = (* 'mcll' *) $6D636C6C;	// Maximum Content Light Level in range 1 cd/m2 - 65535 cd/m2
   bmdDeckLinkFrameMetadataHDRMaximumFrameAverageLightLevel      = (* 'fall' *) $66616C6C;	// Maximum Frame Average Light Level in range 1 cd/m2 - 65535 cd/m2
+  bmdDeckLinkFrameMetadataCintel16mmCropRequired                = (* 'c16c' *) $63313663;	// The image should be cropped to 16mm size
+  bmdDeckLinkFrameMetadataCintelInversionRequired               = (* 'cinv' *) $63696E76;	// The image should be colour inverted
+  bmdDeckLinkFrameMetadataCintelFlipRequired                    = (* 'cflr' *) $63666C72;	// The image should be flipped horizontally
+  bmdDeckLinkFrameMetadataCintelFocusAssistEnabled              = (* 'cfae' *) $63666165;	// Focus Assist is currently enabled
+  bmdDeckLinkFrameMetadataCintelKeykodeIsInterpolated           = (* 'kkii' *) $6B6B6969;	// The keykode for this frame is interpolated from nearby keykodes
 
 (* Enum BMDDuplexMode - Duplex for configurable ports *)
 type
@@ -371,18 +403,19 @@ const
   BMDDeckLinkSupportsHDRMetadata                                = (* 'hdrm' *) $6864726D;
   (* Integers *)
   BMDDeckLinkMaximumAudioChannels                               = (* 'mach' *) $6D616368;
-  BMDDeckLinkMaximumAnalogAudioChannels                         = (* 'aach' *) $61616368;
+  BMDDeckLinkMaximumAnalogAudioInputChannels 					= (* 'iach' *) $69616368;
+  BMDDeckLinkMaximumAnalogAudioOutputChannels                   = (* 'aach' *) $61616368;
   BMDDeckLinkNumberOfSubDevices                                 = (* 'nsbd' *) $6E736264;
   BMDDeckLinkSubDeviceIndex                                     = (* 'subi' *) $73756269;
   BMDDeckLinkPersistentID                                       = (* 'peid' *) $70656964;
   BMDDeckLinkDeviceGroupID                                      = (* 'dgid' *) $64676964;
   BMDDeckLinkTopologicalID                                      = (* 'toid' *) $746F6964;
-  BMDDeckLinkVideoOutputConnections                             = (* 'vocn' *) $766F636E;
-  BMDDeckLinkVideoInputConnections                              = (* 'vicn' *) $7669636E;
-  BMDDeckLinkAudioOutputConnections                             = (* 'aocn' *) $616F636E;
-  BMDDeckLinkAudioInputConnections                              = (* 'aicn' *) $6169636E;
+  BMDDeckLinkVideoOutputConnections                             = (* 'vocn' *) $766F636E;	// Returns a BMDVideoConnection bit field
+  BMDDeckLinkVideoInputConnections                              = (* 'vicn' *) $7669636E;	// Returns a BMDVideoConnection bit field
+  BMDDeckLinkAudioOutputConnections                             = (* 'aocn' *) $616F636E;	// Returns a BMDAudioConnection bit field
+  BMDDeckLinkAudioInputConnections                              = (* 'aicn' *) $6169636E;	// Returns a BMDAudioConnection bit field
   BMDDeckLinkVideoIOSupport                                     = (* 'vios' *) $76696F73;	// Returns a BMDVideoIOSupport bit field
-  BMDDeckLinkDeckControlConnections                             = (* 'dccn' *) $6463636E;
+  BMDDeckLinkDeckControlConnections                             = (* 'dccn' *) $6463636E;	// Returns a BMDDeckControlConnection bit field
   BMDDeckLinkDeviceInterface                                    = (* 'dbus' *) $64627573;	// Returns a BMDDeviceInterface
   BMDDeckLinkAudioInputRCAChannelCount                          = (* 'airc' *) $61697263;
   BMDDeckLinkAudioInputXLRChannelCount                          = (* 'aixc' *) $61697863;
@@ -431,6 +464,7 @@ const
   (* Flags *)
   bmdDeckLinkStatusVideoInputSignalLocked                       = (* 'visl' *) $7669736C;
   bmdDeckLinkStatusReferenceSignalLocked                        = (* 'refl' *) $7265666C;
+  bmdDeckLinkStatusReceivedEDID									= (* 'edid' *) $65646964;
 	
 (* Enum BMDDeckLinkVideoStatusFlags -  *)
 type
@@ -447,6 +481,13 @@ const
   bmdDuplexStatusHalfDuplex                                     = (* 'hdup' *) $68647570;
   bmdDuplexStatusSimplex                                        = (* 'splx' *) $73706C78;
   bmdDuplexStatusInactive                                       = (* 'inac' *) $696E6163;
+   
+(* Enum BMDPanelType - The type of interchangeable panel *)
+type
+  _BMDPanelType = TOleEnum;
+const
+  bmdPanelNotDetected                                     		= (* 'npnl' *) $6E706E6C;
+  bmdPanelTeranexMiniSmartPanel									= (* 'tmsm' *) $746D736D;
 
 (* Enum BMDDeviceBusyState - Current device busy state *)
 type

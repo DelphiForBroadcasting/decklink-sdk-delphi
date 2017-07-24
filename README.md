@@ -1,7 +1,7 @@
 # decklink-sdk-delphi
 
-* Decklink SDK version - 10.8.3<br>
-* Development environment - Delphi XE10.1<br>
+* Decklink SDK version - 10.9.5<br>
+* Development environment - Delphi XE 10.2<br>
 
 <b>Ported by:</b>
 ```
