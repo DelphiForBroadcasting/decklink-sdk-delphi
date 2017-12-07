@@ -671,7 +671,7 @@ begin
   m_deckLinkOutput.DisableVideoOutput;
 
   if assigned(m_videoFrameBlack) then
-    m_videoFrameBars._Release;
+    m_videoFrameBlack._Release;
   m_videoFrameBlack:=nil;
 
   if assigned(m_videoFrameBars) then
